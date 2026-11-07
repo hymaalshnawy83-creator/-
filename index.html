@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سوق السعادة | التسوق أسهل</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#101010;color:white}
+header{background:#191919;padding:25px 15px;text-align:center;border-bottom:2px solid #d6ad55}
+header h1{color:#e5bd63;margin:0;font-size:32px}
+header p{color:#ddd}
+nav{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;padding:15px}
+nav button,.buy{background:#d6ad55;color:#111;border:0;padding:11px 18px;border-radius:9px;font-weight:bold;cursor:pointer}
+.hero{text-align:center;padding:35px 15px;background:linear-gradient(135deg,#242424,#111)}
+.hero h2{color:#e5bd63;font-size:27px}
+.hero p{color:#ddd}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:15px;padding:18px}
+.card{background:#202020;border:1px solid #444;border-radius:14px;padding:15px;text-align:center}
+.card .emoji{font-size:45px}
+.card h3{color:#e5bd63}
+.price{color:#fff;font-weight:bold;margin:12px}
+.buy{width:100%}
+#cart{margin:18px;padding:18px;background:#202020;border-radius:12px;border:1px solid #d6ad55}
+#cart h2{color:#e5bd63}
+footer{text-align:center;padding:25px;color:#bbb;background:#191919;margin-top:25px}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🛍️ سوق السعادة</h1>
+<p>كل اللي بتحبه... هتلاقيه عندنا ❤️</p>
+</header>
+
+<section class="hero">
+<h2>أهلاً بيكم في سوق السعادة</h2>
+<p>أحذية - مكسرات - شوكولاتة - ملابس رياضية</p>
+<p>اختار منتجاتك واستمتع بالتسوق!</p>
+</section>
+
+<nav>
+<button onclick="filter('all')">الكل</button>
+<button onclick="filter('shoes')">الأحذية</button>
+<button onclick="filter('nuts')">المكسرات</button>
+<button onclick="filter('chocolate')">الشوكولاتة</button>
+<button onclick="filter('clothes')">الملابس الرياضية</button>
+</nav>
+
+<section class="products" id="products">
+
+<div class="card" data-type="shoes">
+<div class="emoji">👟</div>
+<h3>أحذية متنوعة</h3>
+<p>اختار من تشكيلتنا المتنوعة</p>
+<div class="price">140 / 160 / 200 جنيه</div>
+<button class="buy" onclick="add('أحذية متنوعة')">أضف للسلة</button>
+</div>
+
+<div class="card" data-type="nuts">
+<div class="emoji">🥜</div>
+<h3>مكسرات</h3>
+<p>تشكيلة متنوعة وطازة</p>
+<div class="price">150 / 200 / 250 جنيه</div>
+<button class="buy" onclick="add('مكسرات')">أضف للسلة</button>
+</div>
+
+<div class="card" data-type="chocolate">
+<div class="emoji">🍫</div>
+<h3>جالاكسي</h3>
+<p>شوكولاتة جالاكسي</p>
+<div class="price">اسأل عن السعر</div>
+<button class="buy" onclick="add('جالاكسي')">أضف للسلة</button>
+</div>
+
+<div class="card" data-type="chocolate">
+<div class="emoji">🍫</div>
+<h3>كيت كات</h3>
+<p>شوكولاتة كيت كات</p>
+<div class="price">اسأل عن السعر</div>
+<button class="buy" onclick="add('كيت كات')">أضف للسلة</button>
+</div>
+
+<div class="card" data-type="chocolate">
+<div class="emoji">🍬</div>
+<h3>مورو</h3>
+<p>شوكولاتة مورو</p>
+<div class="price">اسأل عن السعر</div>
+<button class="buy" onclick="add('مورو')">أضف للسلة</button>
+</div>
+
+<div class="card" data-type="clothes">
+<div class="emoji">👕</div>
+<h3>ملابس رياضية</h3>
+<p>تشكيلة ملابس رياضية متنوعة</p>
+<div class="price">اسأل عن السعر</div>
+<button class="buy" onclick="add('ملابس رياضية')">أضف للسلة</button>
+</div>
+
+</section>
+
+<section id="cart">
+<h2>🛒 سلة مشترياتك</h2>
+<div id="items">السلة فارغة حالياً</div>
+<button class="buy" onclick="order()">اطلب منتجاتك</button>
+</section>
+
+<footer>
+<h3>سوق السعادة ❤️</h3>
+<p>شكراً لزيارتكم متجرنا</p>
+<p>التسوق أسهل وأحلى معانا</p>
+</footer>
+
+<script>
+let cart=[];
+
+function filter(type){
+document.querySelectorAll('.card').forEach(card=>{
+card.style.display=(type==='all'||card.dataset.type===type)?'block':'none';
+});
+}
+
+function add(name){
+cart.push(name);
+document.getElementById('items').innerHTML=
+cart.map((item,i)=>`${i+1}- ${item}`).join('<br>');
+}
+
+function order(){
+if(cart.length===0){
+alert('أضف منتجات للسلة أولاً');
+return;
+}
+let message='مرحباً سوق السعادة، أريد الاستفسار عن المنتجات التالية:\n'+cart.join('\n');
+let phone='201XXXXXXXXX';
+if(phone.includes('X')){
+alert('السلة جاهزة! سيتم تفعيل واتساب بعد إضافة رقم المتجر.');
+return;
+}
+window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(message));
+}
+</script>
+
+</body>
+</html>
